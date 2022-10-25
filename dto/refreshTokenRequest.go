@@ -1,8 +1,8 @@
 package dto
 
 import (
+	"cr-auth/domain"
 	"errors"
-	"github.com/ashishjuyal/banking-auth/domain"
 	"github.com/dgrijalva/jwt-go"
 )
 

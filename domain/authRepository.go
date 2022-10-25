@@ -1,9 +1,9 @@
 package domain
 
 import (
+	"cr-auth/errs"
+	"cr-auth/logger"
 	"database/sql"
-	"github.com/ashishjuyal/banking-lib/errs"
-	"github.com/ashishjuyal/banking-lib/logger"
 	"github.com/jmoiron/sqlx"
 )
 

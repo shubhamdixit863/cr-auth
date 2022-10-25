@@ -1,11 +1,10 @@
 package app
 
 import (
+	"cr-auth/domain"
+	"cr-auth/logger"
+	"cr-auth/service"
 	"fmt"
-	"github.com/ashishjuyal/banking-auth/domain"
-	"github.com/ashishjuyal/banking-auth/service"
-	"github.com/ashishjuyal/banking-lib/logger"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 	"log"

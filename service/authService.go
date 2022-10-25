@@ -1,11 +1,11 @@
 package service
 
 import (
+	"cr-auth/domain"
+	"cr-auth/dto"
+	"cr-auth/errs"
+	"cr-auth/logger"
 	"fmt"
-	"github.com/ashishjuyal/banking-auth/domain"
-	"github.com/ashishjuyal/banking-auth/dto"
-	"github.com/ashishjuyal/banking-lib/errs"
-	"github.com/ashishjuyal/banking-lib/logger"
 	"github.com/dgrijalva/jwt-go"
 )
 
