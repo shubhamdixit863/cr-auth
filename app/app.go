@@ -22,7 +22,7 @@ func Start() {
 	router.HandleFunc("/health", ah.Healthcheck).Methods(http.MethodGet)
 
 	router.HandleFunc("/auth/login", ah.Login).Methods(http.MethodPost)
-	router.HandleFunc("/auth/register", ah.NotImplementedHandler).Methods(http.MethodPost)
+	router.HandleFunc("/auth/signup", ah.Signup).Methods(http.MethodPost)
 	router.HandleFunc("/auth/refresh", ah.Refresh).Methods(http.MethodPost)
 	router.HandleFunc("/auth/verify", ah.Verify).Methods(http.MethodGet)
 

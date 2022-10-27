@@ -12,12 +12,19 @@ import (
 type AuthService interface {
 	Login(dto.LoginRequest) (*dto.LoginResponse, *errs.AppError)
 	Verify(urlParams map[string]string) *errs.AppError
+	Signup(request dto.SignupRequest) *errs.AppError
+
 	Refresh(request dto.RefreshTokenRequest) (*dto.LoginResponse, *errs.AppError)
 }
 
 type DefaultAuthService struct {
 	repo            domain.AuthRepository
 	rolePermissions domain.RolePermissions
+}
+
+func (s DefaultAuthService) Signup(request dto.SignupRequest) *errs.AppError {
+	return s.repo.AddUser(request)
+
 }
 
 func (s DefaultAuthService) Refresh(request dto.RefreshTokenRequest) (*dto.LoginResponse, *errs.AppError) {

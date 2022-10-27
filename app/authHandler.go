@@ -17,8 +17,22 @@ func (h AuthHandler) Healthcheck(w http.ResponseWriter, r *http.Request) {
 	writeResponse(w, http.StatusOK, "App Is Working Fine")
 }
 
-func (h AuthHandler) NotImplementedHandler(w http.ResponseWriter, r *http.Request) {
-	writeResponse(w, http.StatusOK, "Handler not implemented...")
+func (h AuthHandler) Signup(w http.ResponseWriter, r *http.Request) {
+	var signupRequest dto.SignupRequest
+	if err := json.NewDecoder(r.Body).Decode(&signupRequest); err != nil {
+		logger.Error("Error while decoding login request: " + err.Error())
+		writeResponse(w, 400, err.Error())
+	} else {
+		err := h.service.Signup(signupRequest)
+		if err != nil {
+			writeResponse(w, http.StatusBadGateway, err.Message)
+
+		} else {
+			writeResponse(w, http.StatusOK, "Signup Success")
+
+		}
+	}
+
 }
 
 func (h AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
