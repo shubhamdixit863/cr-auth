@@ -13,6 +13,10 @@ type AuthHandler struct {
 	service service.AuthService
 }
 
+func (h AuthHandler) Healthcheck(w http.ResponseWriter, r *http.Request) {
+	writeResponse(w, http.StatusOK, "App Is Working Fine")
+}
+
 func (h AuthHandler) NotImplementedHandler(w http.ResponseWriter, r *http.Request) {
 	writeResponse(w, http.StatusOK, "Handler not implemented...")
 }

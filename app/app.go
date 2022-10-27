@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
+	_ "gorm.io/driver/mysql"
 	"log"
 	"net/http"
 	"os"
@@ -18,6 +19,7 @@ func Start() {
 	router := mux.NewRouter()
 	authRepository := domain.NewAuthRepository(getDbClient())
 	ah := AuthHandler{service.NewLoginService(authRepository, domain.GetRolePermissions())}
+	router.HandleFunc("/health", ah.Healthcheck).Methods(http.MethodGet)
 
 	router.HandleFunc("/auth/login", ah.Login).Methods(http.MethodPost)
 	router.HandleFunc("/auth/register", ah.NotImplementedHandler).Methods(http.MethodPost)
