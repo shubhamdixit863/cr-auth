@@ -19,7 +19,6 @@ type AuthRepositoryDb struct {
 }
 
 func (d AuthRepositoryDb) AddUser(user *User) *errs.AppError {
-
 	_, err := d.client.NamedExec(`INSERT INTO users (username,password, email,name) VALUES (:username, :password, :email,:name)`, user)
 	if err != nil {
 		return errs.NewUnexpectedError("Problem In Inserting In The Db" + err.Error())
