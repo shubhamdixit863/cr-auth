@@ -49,7 +49,7 @@ func (s DefaultAuthService) Refresh(request dto.RefreshTokenRequest) (*dto.Login
 
 func (s DefaultAuthService) Login(req dto.LoginRequest) (*dto.LoginResponse, *errs.AppError) {
 	var appErr *errs.AppError
-	var login *domain.Login
+	var login *domain.User
 
 	if login, appErr = s.repo.FindBy(req.Username, req.Password); appErr != nil {
 		return nil, appErr

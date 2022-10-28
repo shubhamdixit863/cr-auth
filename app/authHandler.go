@@ -22,7 +22,7 @@ func (h AuthHandler) Healthcheck(w http.ResponseWriter, r *http.Request) {
 func (h AuthHandler) Signup(w http.ResponseWriter, r *http.Request) {
 	var signupRequest dto.SignupRequest
 	if err := json.NewDecoder(r.Body).Decode(&signupRequest); err != nil {
-		logger.Error("Error while decoding login request: " + err.Error())
+		logger.Error("Error while decoding signup request: " + err.Error())
 		writeResponse(w, 400, err.Error())
 	} else {
 		err := h.service.Signup(signupRequest)
