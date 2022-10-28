@@ -54,7 +54,7 @@ func (d AuthRepositoryDb) GenerateAndSaveRefreshTokenToStore(authToken AuthToken
 	_, err := d.client.Exec(sqlInsert, refreshToken)
 	if err != nil {
 		logger.Error("unexpected database error: " + err.Error())
-		return "", errs.NewUnexpectedError("unexpected database error")
+		return "", errs.NewUnexpectedError("unexpected database error" + err.Error())
 	}
 	return refreshToken, nil
 }
