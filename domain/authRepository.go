@@ -61,7 +61,7 @@ func (d AuthRepositoryDb) GenerateAndSaveRefreshTokenToStore(authToken AuthToken
 
 func (d AuthRepositoryDb) FindBy(username, password string) (*User, *errs.AppError) {
 	var login User
-	sqlVerify := `SELECT *  FROM users  WHERE username = ? and password = ?`
+	sqlVerify := `SELECT username,password  FROM users  WHERE username = ? and password = ?`
 	err := d.client.Get(&login, sqlVerify, username, password)
 	if err != nil {
 		if err == sql.ErrNoRows {
