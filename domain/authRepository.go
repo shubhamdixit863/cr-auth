@@ -68,7 +68,7 @@ func (d AuthRepositoryDb) FindBy(username, password string) (*User, *errs.AppErr
 			return nil, errs.NewAuthenticationError("invalid credentials")
 		} else {
 			logger.Error("Error while verifying login request from database: " + err.Error())
-			return nil, errs.NewUnexpectedError("Unexpected database error")
+			return nil, errs.NewUnexpectedError("Unexpected database error" + err.Error())
 		}
 	}
 	return &login, nil
