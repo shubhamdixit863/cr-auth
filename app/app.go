@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
+	"github.com/rs/cors"
 	_ "gorm.io/driver/mysql"
 	"log"
 	"net/http"
@@ -26,10 +27,16 @@ func Start() {
 	router.HandleFunc("/auth/refresh", ah.Refresh).Methods(http.MethodPost)
 	router.HandleFunc("/auth/verify", ah.Verify).Methods(http.MethodGet)
 
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+	})
+	handler := c.Handler(router)
+
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")
 	logger.Info(fmt.Sprintf("Starting OAuth server on %s:%s ...", address, port))
-	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), router))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), handler))
 }
 
 func getDbClient() *sqlx.DB {
