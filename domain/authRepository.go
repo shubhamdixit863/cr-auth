@@ -8,7 +8,7 @@ import (
 )
 
 type AuthRepository interface {
-	FindBy(username string, password string) (*Login, *errs.AppError)
+	FindBy(username string, password string) (*User, *errs.AppError)
 	AddUser(user *User) *errs.AppError
 	GenerateAndSaveRefreshTokenToStore(authToken AuthToken) (string, *errs.AppError)
 	RefreshTokenExists(refreshToken string) *errs.AppError
@@ -59,12 +59,9 @@ func (d AuthRepositoryDb) GenerateAndSaveRefreshTokenToStore(authToken AuthToken
 	return refreshToken, nil
 }
 
-func (d AuthRepositoryDb) FindBy(username, password string) (*Login, *errs.AppError) {
-	var login Login
-	sqlVerify := `SELECT username, u.customer_id, role, group_concat(a.account_id) as account_numbers FROM users u
-                  LEFT JOIN accounts a ON a.customer_id = u.customer_id
-                WHERE username = ? and password = ?
-                GROUP BY a.customer_id`
+func (d AuthRepositoryDb) FindBy(username, password string) (*User, *errs.AppError) {
+	var login User
+	sqlVerify := `SELECT *  FROM users  WHERE username = ? and password = ?`
 	err := d.client.Get(&login, sqlVerify, username, password)
 	if err != nil {
 		if err == sql.ErrNoRows {
