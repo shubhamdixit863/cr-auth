@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"cr-auth/dto"
 	"cr-auth/errs"
 	"cr-auth/logger"
 	"database/sql"
@@ -10,7 +9,7 @@ import (
 
 type AuthRepository interface {
 	FindBy(username string, password string) (*Login, *errs.AppError)
-	AddUser(request dto.SignupRequest) *errs.AppError
+	AddUser(user *User) *errs.AppError
 	GenerateAndSaveRefreshTokenToStore(authToken AuthToken) (string, *errs.AppError)
 	RefreshTokenExists(refreshToken string) *errs.AppError
 }
@@ -19,10 +18,10 @@ type AuthRepositoryDb struct {
 	client *sqlx.DB
 }
 
-func (d AuthRepositoryDb) AddUser(request dto.SignupRequest) *errs.AppError {
-	userStruct := request.ToDomain()
+func (d AuthRepositoryDb) AddUser(user *User) *errs.AppError {
+
 	_, err := d.client.NamedExec(`INSERT INTO users (username,password, email,name)
-        VALUES (:username, :password, :email,:name)`, userStruct)
+        VALUES (:username, :password, :email,:name)`, user)
 	if err != nil {
 		return errs.NewUnexpectedError("Problem In Inserting In The Db")
 	}

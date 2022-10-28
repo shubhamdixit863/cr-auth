@@ -13,7 +13,6 @@ type AuthService interface {
 	Login(dto.LoginRequest) (*dto.LoginResponse, *errs.AppError)
 	Verify(urlParams map[string]string) *errs.AppError
 	Signup(request dto.SignupRequest) *errs.AppError
-
 	Refresh(request dto.RefreshTokenRequest) (*dto.LoginResponse, *errs.AppError)
 }
 
@@ -23,7 +22,8 @@ type DefaultAuthService struct {
 }
 
 func (s DefaultAuthService) Signup(request dto.SignupRequest) *errs.AppError {
-	return s.repo.AddUser(request)
+
+	return s.repo.AddUser(domain.NewUser(request.Username, request.Email, request.Password, request.Name))
 
 }
 
