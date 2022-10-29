@@ -52,6 +52,7 @@ func getDbClient() *sqlx.DB {
 		panic(err)
 	}
 	// See "Important settings" section.
+
 	client.SetConnMaxLifetime(time.Minute * 3)
 	client.SetMaxOpenConns(10)
 	client.SetMaxIdleConns(10)
