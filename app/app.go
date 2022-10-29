@@ -58,6 +58,7 @@ func getDbClient() *sqlx.DB {
 	return client
 }
 
+// Redeploy check
 func sanityCheck() {
 	envProps := []string{
 		"SERVER_ADDRESS",
